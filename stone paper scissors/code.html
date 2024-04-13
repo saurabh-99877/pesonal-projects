@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    *{
+    margin: 0;
+    padding: 0;
+    text-align: center;
+}
+
+h1 {
+    background-color: #081b31;
+    color:white;
+    height: 5rem;
+    line-height :5rem; 
+   
+}
+
+img {
+    width:150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+   
+}
+.choice {
+    height: 165px;
+    width:165px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.choices {
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
+    margin-top: 0;
+    align-items: center;
+}
+
+.choice:hover {
+background-color: #081b31;
+ cursor: pointer;
+}
+
+.score-board {
+display: flex;
+justify-content: center;
+align-items: center;
+gap:5rem;
+font-size: 2rem;
+margin: 2rem;
+}
+
+#comp-score,#user-score{
+    font-size: 3rem;   
+}
+
+#msg {
+background-color: #081b31;
+color:white;
+font-size: 2rem;
+display: inline;
+padding: 1rem;
+border-radius:1rem;
+}
+
+.reset {
+    margin:30px auto;
+    width:120px;
+    height: 120px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+button {
+    padding:1rem;
+    border: none;
+    border-radius: 50%;
+    background-color: brown;
+    color: beige;
+    font-size: 1rem;
+    width:110px;
+    height: 110px;
+}
+.reset:hover{
+    background-color: #081b31;
+    cursor: pointer;
+}
+button:hover {
+    cursor: pointer;
+}
+  </style>
+</head>
+<body>
+  <h1>Rock Paper Scissors</h1>
+<div class="choices">
+  <div class="choice" id="rock">
+    <img src="rock.png"/>
+  </div>
+  <div class="choice" id="paper">
+    <img src="paper.png"/>
+  </div>
+  <div class="choice" id="scissors">
+    <img src="scissors.png"/>
+  </div>
+</div>
+
+<div class="score-board">
+  <div class="score">
+    <p id="user-score">0</p>
+    <p>you</p>
+  </div>
+  <div class="score">
+    <p id="comp-score">0</p>
+    <p>Comp</p>
+  </div>
+</div>
+
+<div class="msg-container">
+  <p id="msg">select your move</p>
+</div>
+
+<div class ="reset">
+  <button type ="reset" id="btn">reset game</button>
+</div>
+<script>
+  const choices = document.querySelectorAll(".choice");
+const msg = document.querySelector("#msg");
+const uscore = document.getElementById("user-score");
+const cscore = document.getElementById("comp-score");
+const btn = document.getElementById("btn");
+
+let usrscore = 0;
+let compscore = 0;
+
+choices.forEach((choice) => {
+   console.log(choice);
+   choice.addEventListener("click" ,()=> {  
+    const  userChoice = choice.getAttribute("id");
+    playGame(userChoice);
+   });
+});
+
+const genCompChoice = () => {
+   const options = ["rock","paper","scissors"];
+   const randIdx= Math.floor(Math.random() * 3);
+   return options[randIdx];
+}
+
+const drawGame = () => {
+   console.log('game is draw');
+   msg.innerText = "game draw";
+   msg.style.backgroundColor = "#081b31"
+}
+
+const WinnerIs = (userWin,userChoice,compChoice) => {
+if(userWin){
+console.log("you win");
+msg.innerText = `you won! ${userChoice} beats ${compChoice}`;
+msg.style.backgroundColor = "green";
+let x = ++usrscore;
+uscore.innerText = x;
+}
+ else {
+console.log("you lose");
+msg.innerText = `you lose! ${compChoice} beats ${userChoice}`;
+msg.style.backgroundColor = "red";
+let y = ++compscore;
+cscore.innerText = y;
+}
+}
+
+const playGame = (userChoice) => {
+console.log("user choice=",userChoice);
+const compChoice = genCompChoice();
+console.log("comp choice =",compChoice);
+if(userChoice === compChoice)
+ drawGame();
+else {
+   let userWin = true;
+ if(userChoice === "rock")
+ userWin = compChoice === "paper" ? false : true;
+else if (userChoice === "paper") {
+userWin = compChoice === "scissors" ? false : true;
+} else {
+   userWin = compChoice ==="rock" ? false : true;
+}
+WinnerIs(userWin,userChoice,compChoice);
+}
+}
+
+btn.addEventListener("click", () => {
+  uscore.innerText = 0;
+  cscore.innerText = 0;
+  msg.innerText = 'select your move';
+  msg.style.backgroundColor = "#081b31";
+  usrscore = 0;
+ compscore = 0;
+  console.log("reset");
+});
+</script>
+</body>
+</html>

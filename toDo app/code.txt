@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="style1.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+
+.container {
+    width: 100%;
+    min-height: 100vh;
+    background:linear-gradient(135deg,#153677,#4e085f);
+    padding: 10px;
+}
+
+.todo {
+    width: 100%;
+    max-width: 540px;
+    background-color: #fff;
+    margin: 100px auto;
+    border-radius: 10px;
+    padding: 40px 30px 70px;
+}
+
+.todo h2 {
+    color: #002765;
+    display: flex; 
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.todo h2 img {
+    margin-left: 10px;
+    width: 30px;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #edeef0;
+    border-radius: 30px;
+    padding-left: 10px; 
+}
+
+input {
+    flex: 1;
+    border:none;
+    outline: none;
+    padding: 10px;
+    background: transparent;
+    font-weight: 14px;
+}
+
+button {
+    padding: 16px 50px;
+    border: none;
+    outline: none;
+    background-color: #ff5945;
+    color: #fff;
+    font-size: 16px;
+    border-radius: 40px;
+    cursor: pointer;
+}
+
+ul li {
+    font-size: 17px;
+    padding: 12px 8px 12px 50px;
+    list-style-type: none;
+    cursor: pointer;
+    user-select: none;
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    
+}
+
+ul li::before {
+    content: "";
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    background-image: url(unchecked.png);
+    background-size: cover;
+}
+
+ul li.checked {
+    text-decoration: line-through;
+    color: #333;
+}
+
+ul li.checked::before {
+    background-image: url("checked.png");
+}
+
+ul li span :hover{
+   background-color: #666;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="todo">
+      <h2>todo List <img src="todo1.jpeg"></h2>
+     <div class="row">
+      <input type="text" id="input-box" placeholder="Add your text">
+      <button id="add">Add</button>
+     </div>
+     <ul id="list-container">
+     </ul>
+    </div>
+  </div>
+  <script>
+   const listContainer = document.querySelector("#list-container");
+   const inputBox =  document.querySelector("#input-box");
+   const btn =  document.querySelector("#add");
+
+addTask = () => {
+  if(inputBox.value === "")
+  alert("You must write something!");
+else{
+  var li = document.createElement("li");
+  li.innerHTML = inputBox.value;
+  listContainer.appendChild(li);
+  var dab = document.createElement("span");
+  dab.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+  li.appendChild(dab);
+}
+inputBox.value = "";
+saveData();
+}
+
+btn.addEventListener("click",addTask);
+ 
+listContainer.addEventListener("click", (e) => {
+  if(e.target.tagName === "LI"){
+    e.target.classList.toggle("checked");
+    saveData();
+    }  else if (e.target.tagName === "I") {
+      e.target.parentElement.parentElement.remove();
+      saveData();
+    }
+},false);
+
+saveData = () => {
+  localStorage.setItem("data",listContainer.innerHTML);
+};
+
+  showTask = () => {
+    listContainer.innerHTML = localStorage.getItem("data");
+  }
+
+  showTask();
+ </script>
+ </body>
+ </html>

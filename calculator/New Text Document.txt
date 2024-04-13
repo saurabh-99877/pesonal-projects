@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .calc {
+            width: 100%;
+            height: 100vh;
+            background-color: #BBCEA8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .main {
+            min-width: 300px;
+            height: 80vh;
+            max-width: 300px;
+            background-color: #748067;
+            font-size: x-large;
+            font-weight: bold;
+           
+        }
+        input{
+            height: 25vh;
+            width: 100%;
+            border:none;
+            border-bottom: 1px solid;
+            background-color: #748067;
+            outline: none;
+            color: #F0EC57;
+            font-size: x-large;
+            text-align: right;
+            padding: 20px;
+        }
+        .fields{
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+
+        }
+        .num{
+            width:50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: white;
+            margin: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="calc">
+    <div class="main">
+        <input id="inpt">
+     <div class="fields">
+        <div class="num" id="clr" onclick="inpt.value=' '">C</div>
+        <div class="num" id="div" onclick="inpt.value+='/'">/</div>
+        <div class="num" id="mul" onclick="inpt.value+='*'">*</div>
+        <div class="num" id="min" onclick="inpt.value+='-'">-</div>
+        <div class="num" id="add" onclick="inpt.value+='+'">+</div>
+        <div class="num" id="equal"><i class="fa-solid fa-equals"></i></div>
+        <div class="num" id="one" onclick="inpt.value+='1'">1</div>
+        <div class="num" id="two" onclick="inpt.value+='2'">2</div>
+        <div class="num" id="three" onclick="inpt.value+='3'">3</div>
+        <div class="num" id="four" onclick="inpt.value+='4'">4</div>
+        <div class="num" id="five" onclick="inpt.value+='5'">5</div>
+        <div class="num" id="six" onclick="inpt.value+= '6'">6</div>
+        <div class="num" id="seven" onclick="inpt.value+= '7'"> 7</div>
+        <div class="num" id="eight" onclick="inpt.value+='8'">8</div>
+        <div class="num" id="nine" onclick="inpt.value+='9'">9</div>
+        <div class="num" id="zero" onclick="inpt.value+='0'">0</div>
+     </div>
+    </div>
+   </div>
+   <script>
+    const inpt = document.querySelector("#inpt");
+    const equals = document.querySelector("#equal");
+    equals.addEventListener("click", () => {
+            inpt.value = eval(inputField.value);
+    });
+   </script>
+   <script src="app.js"></script>
+</body>
+</html>

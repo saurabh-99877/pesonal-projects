@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="style1.css" rel="stylesheet">
+  <style>
+    * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background-color: indigo;
+  overflow: hidden;
+}
+
+.main {
+    margin: 140px 0 0 100px;
+    padding:20px 30px 40px 10px;
+    width: 100%;
+    max-width: 450px;
+}
+
+.main .one{
+   color:white;
+   padding-bottom: 8px;
+}
+
+.main .two {
+    color: rgba(0, 128, 0, 0.941);
+    padding-bottom: 6px;
+    border-bottom: 2px solid rgba(0, 128, 0, 0.941);
+    width: 220px
+}
+
+#inpt {
+    margin-top:15px;
+    font-size: 20px;
+    padding: 8px;
+    width: 400px;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+}
+
+#para {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background-color: white;
+  color: black;
+  margin-top:10px;
+  
+}
+
+#para span {
+    margin-right: 10px;
+    padding: 10px;
+    font-size: 20px;
+    margin-top:15px;
+    cursor: pointer;
+}
+
+#btn {
+    margin-top:20px;
+    padding:10px;
+    color: white;
+    background-color: rgba(0, 128, 0, 0.941);
+    border: none;
+    font-size: 18px;
+    border-radius: 3px;
+}
+
+#btn:hover {
+    opacity: 0.8;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+   <div class="main">
+    <h2 class="one">Generate a</h2>
+    <h2 class="two">Random Password</h2>
+    <p id="para"><input type="text" id="inpt" placeholder="Enter Your Password">
+    <span>COPY</span></p>
+    <button id="btn">Generate Password</button>
+   </div>
+  </div>
+  <script>
+    const passwordBox = document.querySelector("#inpt");
+    const btn = document.querySelector("#btn");
+    const copy =  document.querySelector("span");
+
+    const upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const lowerCase = "abcdefghijklmnopqrstuvwxyz";
+    const number = "0123456789";
+    const symbol = "@#$%^&*()_+~|}{[]></-=";
+    const allChars = upperCase + lowerCase + number + symbol;
+
+    createPassword = () => {
+      let password = "";
+      password += upperCase[Math.floor(Math.random() * upperCase.length)];
+      password += lowerCase[Math.floor(Math.random() * lowerCase.length)];
+      password += number[Math.floor(Math.random() * number.length)];
+      password += symbol[Math.floor(Math.random() * symbol.length)];
+      while(password.length!=8)
+      password += allChars[Math.floor(Math.random() * allChars.length)];
+      passwordBox.value = password;
+  }
+
+  copyPassword = () => {
+    passwordBox.select();
+    document.execCommand("copy");
+  }
+
+  btn.addEventListener("click",createPassword);
+  copy.addEventListener("click",copyPassword);
+  </script>
+</body>
+</html>

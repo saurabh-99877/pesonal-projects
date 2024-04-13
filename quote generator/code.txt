@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+  *{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+body{
+  background-color: #bbc6fa;
+  font-family: 'Playfair Display';
+} 
+
+  .quote {
+    width: 50%;
+    background-color: #fff;
+    position: absolute;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px 0 rgba(0,0,0,0.2);
+    text-align: center;
+    min-width: 600px;
+  }
+
+  .quote h2 {
+    font-size: 32px;
+    
+  }
+
+  #hr1 {
+    margin: 5px auto;
+    height: 5px;
+    background-color: blue;
+    width: 70px;
+    margin-bottom: 20px;
+  }
+
+  blockquote::before,blockquote::after {
+    content: '"';
+  }
+h3{
+  text-align: right;
+  margin-top: 20px;
+}
+  h3::before {
+     content: '--';
+  }
+  #btn1 ,#btn2{
+   padding: 20px 25px;
+   border: none;
+   background-color: aqua;
+   color:#fff;
+   font-size: 1.3rem;
+   margin: 30px 6px;
+   border-radius: 10px;
+   box-shadow: 0 10px 20px 0 rgba(0,0,0,0.1);
+  }
+
+  #btn2 img {
+    width: 15px;
+    margin-right: 6px;
+  }
+
+  </style>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="quote">
+    <h2>Quote of the day</h2>
+    <hr id="hr1">
+    <blockquote></blockquote>
+    <h3></h3>
+    <button id="btn1">New quote</button>
+    <button id="btn2"><img src="tweet.jpeg">Tweet</button>
+  </div>
+
+  <script>
+    const url = "https://api.quotable.io/random";
+    const btn1 = document.querySelector("#btn1");
+    const btn2 =  document.querySelector("#btn2");
+    const quote = document.querySelector("blockquote");
+    const author =  document.querySelector("h3");
+
+    btn1.addEventListener("click", () => {
+      async function call(url) {
+        const resp = await fetch(url);
+        const data = await resp.json();
+        console.log(data);
+        quote.textContent = data.content;
+        author.textContent = data.author;
+        saveData();
+      }
+      call(url);
+    })
+
+    btn2.addEventListener("click", () => {
+      window.open(`https://twitter.com/intent/tweet?text=${quote.textContent}  --- ${author.textContent}`);
+    })
+
+    function saveData() {
+      localStorage.setItem("quote", quote.innerHTML);
+      localStorage.setItem("author", author.innerHTML);
+    }
+ 
+
+    function getData() {
+     quote.innerText = localStorage.getItem("quote");
+     author.innerText = localStorage.getItem("author");
+    }
+    getData();
+  </script>
+</body>
+</html>
